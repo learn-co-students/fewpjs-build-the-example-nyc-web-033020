@@ -3,9 +3,21 @@ const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
+const error = document.querySelector('#modal')
+error.classList.add('hidden')
 
+document.addEventListener('click', function(e){
+   const clickedHeart = e.target.textContent
+   const card = e.target.parentElement
+   console.log(card)
 
+   if (clickedHeart === EMPTY_HEART){
+     card.textContent = `Like! ${FULL_HEART}`
+     card.style.color = "red"
+     mimicServerCall().catch(() => {}).then(() => {})
+   }
 
+})
 
 //------------------------------------------------------------------------------
 // Ignore after this point. Used only for demo purposes
@@ -20,6 +32,6 @@ function mimicServerCall(url="http://mimicServer.example.com", config={}) {
       } else {
         resolve("Pretend remote server notified of action!");
       }
-    }, 300);
+    }, 300)
   });
-}
+} 
