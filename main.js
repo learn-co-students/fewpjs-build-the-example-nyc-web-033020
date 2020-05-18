@@ -10,6 +10,13 @@ document.addEventListener("DOMContentLoaded", ()=>{
   addHeartClicks();
 })
 
+let errorCase = (error)=>{
+  console.log(error)
+  errorFlag.textContent = error
+  errorFlag.className = ""
+  window.setTimeout(function(){errorFlag.className="hidden"}, 2000)
+}
+
  let addHeartClicks = () =>{
   hearts.forEach( heart => {
     heart.addEventListener('click', function(e){
@@ -24,14 +31,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
           e.target.className = ""
         }
       })
-      .catch((error)=>{
-        console.log(error)
-        errorFlag.textContent = error
-        errorFlag.className = ""
-        window.setTimeout(function(){errorFlag.className="hidden"}, 2000)
-      })  
-      
-      
+      .catch(errorCase)  
     })
   })
 }
