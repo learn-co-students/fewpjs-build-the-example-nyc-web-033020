@@ -8,7 +8,12 @@ const errorModal = document.querySelector('#modal')
 errorModal.className = "hidden"
 
 document.addEventListener('click', function(e){
-  if (e.target.className === "like-glyph" ) {
+  if (e.target.className === "like-glyph") {
+    mimicServerCall()
+    .then(error => {
+      alert("Something happened!")
+      document.getElementById("modal").className = " "
+    })
     e.target.parentNode.children[0].textContent = FULL_HEART
     e.target.parentNode.children[0].className = 'activated-heart'
   } else if (e.target.className === "activated-heart" ) {
