@@ -1,26 +1,62 @@
+// // Your JavaScript code goes here!
+// MY CODE
+
+// const errorModal = document.querySelector('#modal')
+// errorModal.className = "hidden"
+
+// document.addEventListener('click', function(e){
+//   if (e.target.className === "like-glyph") {
+//     mimicServerCall()
+//     .then(error => {
+//       alert("Something happened!")
+//       document.getElementById("modal").className = " "
+//     })
+//     e.target.parentNode.children[0].textContent = FULL_HEART
+//     e.target.parentNode.children[0].className = 'activated-heart'
+//   } else if (e.target.className === "activated-heart" ) {
+//     e.target.parentNode.children[0].textContent = EMPTY_HEART
+//     e.target.parentNode.children[0].className = 'like-glyph'
+//   } 
+// })
+
 // Defining text characters for the empty and full hearts for you to use later.
 const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
+let glyphStates = {
+  "♡": "♥",
+  "♥": "♡"
+};
 
-// Your JavaScript code goes here!
-const errorModal = document.querySelector('#modal')
-errorModal.className = "hidden"
+let colorStates = {
+  "red" : "",
+  "": "red"
+};
 
-document.addEventListener('click', function(e){
-  if (e.target.className === "like-glyph") {
-    mimicServerCall()
-    .then(error => {
-      alert("Something happened!")
-      document.getElementById("modal").className = " "
+let articleHearts = document.querySelectorAll(".like");
+
+function likeCallback(e) {
+  let heart = e.target;
+  mimicServerCall("bogusUrl")
+   //OR: mimicServerCall("bogusUrl", {forceFailure: true})
+    .then(function(serverMessage){
+       heart.innerText = glyphStates[heart.innerText];
+       heart.style.color = colorStates[heart.style.color];
     })
-    e.target.parentNode.children[0].textContent = FULL_HEART
-    e.target.parentNode.children[0].className = 'activated-heart'
-  } else if (e.target.className === "activated-heart" ) {
-    e.target.parentNode.children[0].textContent = EMPTY_HEART
-    e.target.parentNode.children[0].className = 'like-glyph'
-  } 
-})
+    .catch(function(error) {
+      // Basic
+      // alert("Something went wrong!");
+      // or....
+      document.getElementById("modal").className = "";
+    });
+}
+
+for (let glyph of articleHearts) {
+  glyph.addEventListener("click", likeCallback);
+}
+
+
+
 
 
 
