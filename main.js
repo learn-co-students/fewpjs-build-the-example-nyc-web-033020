@@ -2,7 +2,20 @@
 const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
+
 // Your JavaScript code goes here!
+const errorModal = document.querySelector('#modal')
+errorModal.className = "hidden"
+
+document.addEventListener('click', function(e){
+  if (e.target.className === "like-glyph" ) {
+    e.target.parentNode.children[0].textContent = FULL_HEART
+    e.target.parentNode.children[0].className = 'activated-heart'
+  } else if (e.target.className === "activated-heart" ) {
+    e.target.parentNode.children[0].textContent = EMPTY_HEART
+    e.target.parentNode.children[0].className = 'like-glyph'
+  } 
+})
 
 
 
